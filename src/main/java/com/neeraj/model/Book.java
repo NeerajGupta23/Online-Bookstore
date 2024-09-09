@@ -8,13 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
 @Table(name="Book")
 public class Book implements Serializable{
@@ -39,4 +39,15 @@ public class Book implements Serializable{
 	private Boolean isEbook;
 	
 	private Boolean available;
+	
+	public Book() {}
+
+	public Book(String title, String author, Float price, Integer pageNo, Boolean isEbook, Boolean available) {
+		this.title = title;
+		this.author = author;
+		this.price = price;
+		this.pageNo = pageNo;
+		this.isEbook = isEbook;
+		this.available = available;
+	}
 }

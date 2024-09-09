@@ -11,5 +11,6 @@ public interface IBookService {
 	void removeBook(Integer id) throws BookException;
 	void updateBook(Book book) throws BookException;
 	Book bookExits(Integer id) throws BookException;
-	Page<Book> readRangeOfBook(Pageable pageable) throws BookException;
+	Page<Book> readBookWithPagination(Book book, Float minPrice, Float maxPrice, Pageable pageable) throws BookException;	
+	
 }

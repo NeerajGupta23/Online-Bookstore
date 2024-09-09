@@ -16,96 +16,115 @@ public class BookServiceImpl implements IBookService {
 
 	@Autowired
 	private IBookRepository repository;
-	
+
 	@Override
 	public void addBook(Book book) throws BookException {
 		/*
-		 *  add book if book object is not null 
-		 *  otherwise throw BookException
+		 * add book if book object is not null otherwise throw BookException
 		 *
 		 */
 		
-		if(book == null) {
+		if (book == null) {
 			throw new BookException("Book Object must not be null!");
 		}
+
+		book = capitalizeOfBook(book);
 		repository.save(book);
 	}
 
 	@Override
 	public void removeBook(Integer id) throws BookException {
 		/*
-		 * remove book if book exists 
-		 * otherwise throw BookException 
+		 * remove book if book exists otherwise throw BookException
 		 * 
 		 */
-		
+
 		Book book = bookExits(id);
-		if(book == null) {
+		if (book == null) {
 			throw new BookException("Book not exists for given id!");
 		}
-		
+
 		repository.delete(book);
 	}
 
 	@Override
 	public void updateBook(Book book) throws BookException {
 		/*
-		* update book if book is present at database
-		* otherwise throw BookException
-		* 
-		*/
-		
-		
-		if(book == null) {
+		 * update book if book is present at database otherwise throw BookException
+		 * 
+		 */
+
+		if (book == null) {
 			throw new BookException("Book Object must not be null!");
 		}
-		
+
 		Book dbBook = bookExits(book.getId());
-		if(dbBook == null) {
+		if (dbBook == null) {
 			throw new BookException("Book is not updated because book is not present at db!");
 		}
-		
+
+		book = capitalizeOfBook(book);
 		repository.save(book); // always updates book and not save the new book
 	}
 
 	@Override
 	public Book bookExits(Integer id) throws BookException {
 		/*
-		 * accept id and find book equivalent to that id 
-		 * if book present than return same book object 
-		 * otherwise return null
+		 * accept id and find book equivalent to that id if book present than return
+		 * same book object otherwise return null
 		 * 
 		 */
-		
-		if(id == null) {
+
+		if (id == null) {
 			throw new BookException("Book id must not be null!");
 		}
-		
+
 		Optional<Book> book = repository.findById(id);
-		if(book.isEmpty()) {
+		if (book.isEmpty()) {
 			return null;
 		}
 		return book.get();
 	}
-	
 
 	@Override
-	public Page<Book> readRangeOfBook(Pageable pageable) throws BookException {
+	public Page<Book> readBookWithPagination(Book book, Float minPrice, Float maxPrice, Pageable pageable)
+			throws BookException {
 		/*
-		 * return the page object elements are there in page object 
-		 * otherwise throw BookException
+		 * filter the book object with either title or author or price  
+		 * otherwise just do pagination
+		 * 
+		 * throw BookException if pageable object is null
 		 * 
 		 */
 		
-		if(pageable == null) {
+		if (pageable == null) {
 			throw new BookException("Pagable object must not be null!");
 		}
-		
-		Page<Book> pageData = repository.findAll(pageable);
-		if(pageData.getNumberOfElements() == 0) {
-			throw new BookException("No Elements found on Page object!");
-		}
 
-		return pageData;
+		book = capitalizeOfBook(book);
+		Page<Book> filteredBooks;
+		if (book != null && book.getTitle() != null) {
+			filteredBooks = repository.filterBookByTitle(book.getTitle(), pageable);
+		} else if (book != null && book.getAuthor() != null) {
+			filteredBooks = repository.filterBookByAuthor(book.getAuthor(), pageable);
+		} else if (minPrice != null && maxPrice != null) {
+			filteredBooks = repository.filterBookByPrice(minPrice, maxPrice, pageable);
+		} else {
+			filteredBooks = repository.findAll(pageable);
+		}
+		
+		return filteredBooks;
 	}
+
+	private Book capitalizeOfBook(Book book) {
+		
+		if(book != null && book.getTitle() != null) {
+			book.setTitle(book.getTitle().toUpperCase());
+		}
+		if(book != null && book.getAuthor() != null) {
+			book.setAuthor(book.getAuthor().toUpperCase());
+		}
+		return book;
+	}
+
 }
