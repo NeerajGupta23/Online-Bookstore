@@ -14,15 +14,20 @@ import com.neeraj.service.IBookService;
 
 
 @Controller
-@RequestMapping("/main")
-public class MainController {
+@RequestMapping("/admin")
+public class admintController {
 
 	@Autowired
 	private IBookService service;
 	
+	@GetMapping("/home")
+	public String adminHome(Model model) {
+		return "Admin/HomePage"; 
+	}
+	
 	/*
-	* 	below method is for pagination service 
-	*	url : /main/book
+	* 	below method is for pagination service for admin
+	*	url : /admin/book
 	*	method type : get
 	*	return : "User/CRUD/read.html
 	*/
@@ -36,6 +41,6 @@ public class MainController {
 		model.addAttribute("books", books.getContent());
 		model.addAttribute("bookPage", books); 
 		 
-		return "User/CRUD/read"; 
+		return "Admin/read"; 
 	}
 }

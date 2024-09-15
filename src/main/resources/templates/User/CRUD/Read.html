@@ -1,19 +1,80 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Books</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link th:href="@{/css/style.build.tailwind.css}" rel="stylesheet" />
+    <title>Books</title>
 </head>
-<body>
-	
+
+<body class="">
+    <h1 class="underline text-center mt-10 mb-20 text-[30px] font-medium">Book Reading Functionality (pagination)</h1>
+
+    <!-- Book Section  -->
+    <div class="flex flex-wrap justify-evenly bg-blue-200 rounded-lg m-10">
+        <div th:each="book: ${books}" class="mx-16 my-12 text-gray-700 hover:shadow-2xl hover:-translate-y-4">
+            <div th:if="${book.isEbook}"
+                class="text-[13px] text-center bg-green-600 font-bold text-black w-[50%] pb-[0.5px] rounded-3xl relative top-12 right-10 -rotate-45">
+                Soft
+                Copy</div>
+            <div th:unless="${book.isEbook}"
+                class="text-[13px] text-center bg-red-600 font-bold text-black w-[50%] pb-[0.5px] rounded-3xl relative top-11 right-11 -rotate-45">
+                Hard
+                Copy</div>
+            <a href="" class="cursor-pointer">
+                <img class="w-[225px] h-[260px]"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSb1HDABAdxE10QI5Zypvu9rL1SrMoGE_vzg&s"
+                    alt="Loading...">
+            </a>
+            <div class="p-4 text-xl font-bold bg-white">
+                <div th:text="${book.title}"></div>
+                <div th:text="${book.author}"></div>
+                <div th:text="${book.price}" class="text-red-500 line-through"></div>
+                <div class="flex">
+                    <div th:text="${book.price - 0.1*book.price} " class="text-green-500"></div>
+                    <div class="ml-4"> 10% OFF</div>
+                </div>
+                <div th:text="${book.available}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- pagination feature -->
+    <div class="flex justify-center">
+        <a th:href="@{/main/book(page=${bookPage.getNumber-1})}">
+            <img th:if="${bookPage.getNumber != 0}"
+                class="rotate-180 w-[50px] m-4 active:relative active:right-[3px] cursor-pointer"
+                th:src="@{/svg/right-arrow.svg}" alt="loading....">
+        </a>
+        <a>
+            <img th:if="${bookPage.getNumber == 0}"
+                class="rotate-180 w-[50px] m-4 active:relative active:right-[3px] cursor-not-allowed "
+                th:src="@{/svg/right-arrow-gray.svg}" alt="loading....">
+        </a>
+        <div class="flex my-6">
+            <div class="px-4 py-1 text-lg font-bold bg-yellow-300 rounded-lg" th:text="${bookPage.getNumber} + 1">
+            </div>
+        </div>
+        <a>
+            <img th:if="${bookPage.getNumber == bookPage.getTotalPages-1}"
+                class="w-[50px] m-4 active:relative active:left-[3px] cursor-not-allowed "
+                th:src="@{/svg/right-arrow-gray.svg}" alt="loading....">
+        </a>
+        <a th:href="@{/main/book(page=${bookPage.getNumber+1})}">
+            <img th:if="${bookPage.getNumber != bookPage.getTotalPages-1}"
+                class="w-[50px] m-4 active:relative active:left-[3px] cursor-pointer" th:src="@{/svg/right-arrow.svg}"
+                alt="loading....">
+        </a>
+    </div>
+
+    <!-- back button  -->
+    <div class="w-[30px] ml-10 mb-10">
+        <a th:href="@{/}">
+            <img class="w-[30px]" th:src="@{/svg/back-arrow.svg}" alt="back">
+        </a>
+    </div>
 </body>
+
 </html>
-
-
-
-
-
-

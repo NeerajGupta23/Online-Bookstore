@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Getting Started: Serving Web Content</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- this is where we refer the css file from src/main/resources/static/css/style.build.tailwind.css -->
     <link th:href="@{/css/style.build.tailwind.css}" rel="stylesheet" />
+    <title>Admin Home</title>
   </head>
 
   <body class="bg-yellow-100">
     <h1 class="underline text-center mt-10 mb-20 text-[30px] font-medium">
-      Book Store
+      Admin Home
     </h1>
     <div
       class="flex flex-wrap justify-evenly border-2 border-red-600 w-auto mx-28 p-10"
     >
       <a
-        th:href="@{/main/book}"
+        th:href="@{#}"
         class="font-bold bg-purple-500 py-2 px-4 rounded-lg text-white hover:bg-purple-600 active:relative active:bottom-[1px] active:left-[1px]"
-        >Read Books</a
       >
-
+        Insert Books
+      </a>
       <a
-        th:href="@{/admin/home}"
+        th:href="@{/admin/book}"
         class="font-bold bg-purple-500 py-2 px-4 rounded-lg text-white hover:bg-purple-600 active:relative active:bottom-[1px] active:left-[1px]"
-        >Admin Window</a
       >
+        Look Books
+      </a>
+    </div>
+
+    <!-- back button  -->
+    <div class="w-[30px] ml-10 mb-10">
+      <a th:href="@{/}">
+        <img class="w-[30px]" th:src="@{/svg/back-arrow.svg}" alt="back" />
+      </a>
     </div>
   </body>
 </html>
