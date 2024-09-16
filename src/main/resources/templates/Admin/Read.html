@@ -2,11 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/style.build.tailwind.css}" rel="stylesheet" />
     <title>Books</title>
   </head>
@@ -34,7 +32,7 @@
         <a href="" class="cursor-pointer">
           <img
             class="w-[225px] h-[260px]"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSb1HDABAdxE10QI5Zypvu9rL1SrMoGE_vzg&s"
+            th:src="@{/img/books/{fileName}(fileName=${book.imagePath})}"
             alt="Loading..."
           />
         </a>
@@ -53,12 +51,12 @@
         </div>
         <div class="flex justify-evenly">
           <button
-            class="bg-green-200 text-green-800 font-bold py-1 px-2 rounded-xl border-2 border-green-800 relative bottom-3"
+            class="bg-green-200 text-green-800 font-bold py-1 px-2 rounded-xl border-2 border-green-800 relative bottom-3 hover:bg-green-300 active:text-green-950"
           >
             Update
           </button>
           <button
-            class="bg-red-200 text-red-800 font-bold py-1 px-2 rounded-xl border-2 border-red-800 relative bottom-3"
+            class="bg-red-200 text-red-800 font-bold py-1 px-2 rounded-xl border-2 border-red-800 relative bottom-3 hover:bg-red-300 active:text-red-950"
           >
             Delete
           </button>

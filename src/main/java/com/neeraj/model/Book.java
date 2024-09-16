@@ -40,14 +40,17 @@ public class Book implements Serializable{
 	
 	private Boolean available;
 	
+	private String imagePath;
+	
 	public Book() {}
 
-	public Book(String title, String author, Float price, Integer pageNo, Boolean isEbook, Boolean available) {
+	public Book(String title, String author, Float price, Integer pageNo, Boolean isEbook, Boolean available, String imagePath) {
 		this.title = title;
 		this.author = author;
 		this.price = price;
 		this.pageNo = pageNo;
 		this.isEbook = isEbook;
 		this.available = available;
+		this.imagePath = imagePath;
 	}
 }
