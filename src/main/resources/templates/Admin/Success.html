@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/style.build.tailwind.css}" rel="stylesheet" />
+    <title>Sucess</title>
+  </head>
+  <body class="bg-yellow-100">
+    <h1
+      class="text-center text-green-600 font-bold text-2xl my-5"
+      th:text="${successMsg}"
+    ></h1>
+
+    <!-- back button  -->
+    <div class="w-[30px] ml-10 mb-10">
+      <a th:href="@{/admin/{backPath}(backPath=${backPagePath})}">
+        <img class="w-[30px]" th:src="@{/svg/back-arrow.svg}" alt="back" />
+      </a>
+    </div>
+  </body>
+</html>

@@ -12,4 +12,5 @@ public interface IBookService {
 	void updateBook(Book book) throws BookException;
 	Book bookExits(Integer id) throws BookException;
 	Page<Book> readBookWithPagination(Book book, Float minPrice, Float maxPrice, Pageable pageable) throws BookException;	
+	String getBookFileName(String title) throws BookException;
 }

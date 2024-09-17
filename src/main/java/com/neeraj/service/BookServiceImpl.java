@@ -127,4 +127,20 @@ public class BookServiceImpl implements IBookService {
 		return book;
 	}
 
+	@Override
+	public String getBookFileName(String title) throws BookException {
+		/*
+		 * return the name with next number for saving the file 
+		 * eg. dsa1, dsa2, dsa3 than next Book number will be 3(total books) + 1(for next) = 4
+		 * throw BookException if title object is null
+		 * 
+		 */
+		
+		if (title == null) {
+			throw new BookException("title must not be null!");
+		}		
+		title = title.toLowerCase();
+		return (title + repository.getNextBookNumber(title));
+	}
+
 }

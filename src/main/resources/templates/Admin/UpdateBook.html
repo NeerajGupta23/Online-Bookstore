@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/style.build.tailwind.css}" rel="stylesheet" />
-    <title>Insert Book</title>
+    <title>Update Book</title>
   </head>
   <body class="bg-yellow-100">
     <h1 class="underline text-center mt-10 mb-20 text-[30px] font-medium">
-      Fill the Information for Insertion
+      Edit the Information for Updation
     </h1>
 
     <form
-      th:action="@{/admin/saveBook}"
+      th:action="@{/admin/updateBook}"
       method="POST"
       th:object="${Book}"
       enctype="multipart/form-data"
@@ -59,15 +59,15 @@
           </td>
         </tr>
         <tr class="my-5 flex justify-between py-6 px-6 mx-auto w-[50%]">
-          <th>Upload Image:</th>
+          <th>Uploaded Image:</th>
           <td>
-            <input
-              class="text-base"
-              type="file"
-              name="image"
-              accept=".webp"
-              required
-            />
+            <img th:src="@{/img/books/{fileName}(fileName=*{imagePath})}" />
+          </td>
+        </tr>
+        <tr class="my-5 flex justify-between py-6 px-6 mx-auto w-[50%]">
+          <th>Upload Updated Image:</th>
+          <td>
+            <input class="text-base" type="file" name="image" accept=".webp" />
           </td>
         </tr>
       </table>
@@ -77,16 +77,16 @@
           class="border-2 border-black py-1 px-4 bg-purple-200 text-purple-900 font-bold rounded-lg active:bg-purple-300"
           type="submit"
         >
-          Save
+          Update
         </button>
       </div>
     </form>
 
     <!-- back button  -->
     <div class="w-[30px] ml-10 mb-10">
-      <a th:href="@{/admin/home}">
+      <button onclick="history.back()">
         <img class="w-[30px]" th:src="@{/svg/back-arrow.svg}" alt="back" />
-      </a>
+      </button>
     </div>
   </body>
 </html>
