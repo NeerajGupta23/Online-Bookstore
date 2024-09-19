@@ -140,7 +140,7 @@ public class BookServiceImpl implements IBookService {
 			throw new BookException("title must not be null!");
 		}		
 		title = title.toLowerCase();
-		return (title + repository.getNextBookNumber(title));
+		return (title + repository.getNextBookNumber(title, title.length()+1) + ".webp");
 	}
 
 }

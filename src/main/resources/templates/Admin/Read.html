@@ -17,7 +17,6 @@
     <!-- Book Section  -->
     <div class="flex flex-wrap justify-evenly bg-blue-200 rounded-lg m-10">
       <div th:each="book: ${books}" class="mx-16 my-12 text-gray-700">
-
         <!-- Soft Copy or Hard Copy  -->
         <div
           th:if="${book.isEbook}"
@@ -65,11 +64,15 @@
               Update
             </button>
           </form>
-          <button
-            class="bg-red-200 text-red-800 font-bold py-1 px-2 rounded-xl border-2 border-red-800 relative bottom-3 hover:bg-red-300 active:text-red-950"
-          >
-            Delete
-          </button>
+          <form action="/admin/deleteBookUI">
+            <input type="hidden" name="id" th:value="${book.id}" />
+            <button
+              class="bg-red-200 text-red-800 font-bold py-1 px-2 rounded-xl border-2 border-red-800 relative bottom-3 hover:bg-red-300 active:text-red-950"
+              type="submit"
+            >
+              Delete
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -122,5 +125,7 @@
         <img class="w-[30px]" th:src="@{/svg/back-arrow.svg}" alt="back" />
       </a>
     </div>
+
+    <script></script>
   </body>
 </html>
