@@ -11,13 +11,24 @@
     <title>Books</title>
   </head>
 
-  <body class="">
-    <h1 class="underline text-center mt-10 mb-20 text-[30px] font-medium">
+  <body class="bg-backgroud-color1 text-white">
+    <h1 class="text-center mt-10 mb-20 text-[30px] font-medium">
       Book Reading Functionality (pagination)
     </h1>
 
+    <!-- Message will be printed if no data is present  -->
+    <div
+      th:if="${bookPage.isEmpty}"
+      class="bg-white bg-opacity-20 rounded-lg m-10 p-52 flex flex-col"
+    >
+      <h2 class="text-3xl text-center">No Data is Available</h2>
+    </div>
+
     <!-- Book Section  -->
-    <div class="flex flex-wrap justify-evenly bg-blue-200 rounded-lg m-10">
+    <div
+      th:if="${not bookPage.isEmpty}"
+      class="flex flex-wrap justify-evenly bg-white bg-opacity-20 rounded-lg m-10"
+    >
       <div
         th:each="book: ${books}"
         class="mx-16 my-12 text-gray-700 hover:shadow-2xl hover:-translate-y-4"
@@ -58,7 +69,7 @@
     </div>
 
     <!-- pagination feature -->
-    <div class="flex justify-center">
+    <div class="flex justify-center" th:if="${not bookPage.isEmpty}">
       <a th:href="@{/main/book(page=${bookPage.getNumber-1})}">
         <img
           th:if="${bookPage.getNumber != 0}"
